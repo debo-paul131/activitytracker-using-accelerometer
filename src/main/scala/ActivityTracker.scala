@@ -6,7 +6,6 @@ import org.apache.spark.util.IntParam
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.graphx._
 import org.apache.spark.graphx.util.GraphGenerators
-//LAB 10 TODO Import classes for MLLib regression labeledpoint, vectors, decisiontree, decisiontree model, MLUtils
 import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.mllib.linalg.Vector
@@ -42,20 +41,10 @@ object ActivityTracker {
 
     val textRDD = sc.textFile("/Users/debojit/code_bases/spark-mlib-project/data/data.csv")
     val accelerometerDataRDD = textRDD.flatMap(txt => parseRow(txt)).cache()
-
-    // val accelerometerDataDF = accelerometerDataRDD.toDF()
-    // accelerometerDataDF.registerTempTable("accelerometerData")
-    // List<LabeledPoint> labeledPoints = new ArrayList<>();
     val labeledPoints: List[LabeledPoint] = List.empty
 
     for (userId <- 1 to 2) {
       for (activity <- ACTIVITIES) {
-        //        val times = accelerometerDataDF
-        //          .filter($"userId".contains(userId))
-        //          .filter($"activity".contains(activity))
-        //          .select("timestamp")
-        //          .sort($"timestamp".asc)
-        //times.show
         val times = accelerometerDataRDD
           .filter(_.userId == userId)
           .filter(_.activity == activity)
